@@ -34,7 +34,7 @@ Installation
 Add solidus_segment to your Gemfile:
 
 ```ruby
-gem 'solidus_segment'
+gem 'solidus_segment', github: '2beDigital/solidus_segment'
 ```
 
 Bundle your dependencies and run the installation generator:
