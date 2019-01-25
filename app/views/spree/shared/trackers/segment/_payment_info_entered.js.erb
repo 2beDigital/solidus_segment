@@ -1,0 +1,13 @@
+<script>
+  if (typeof analytics !== 'undefined') {
+
+    var buttonS = document.getElementsByName('commit');
+
+    analytics.trackClick(buttonS, 'Payment Info Entered', {
+      checkout_id: '<%= @order.number %>',
+      order_id: '<%= @order.id %>',
+      step: '<%= (@order.checkout_steps.index(@order.state) + 1) %>'
+    });
+
+  }
+</script>

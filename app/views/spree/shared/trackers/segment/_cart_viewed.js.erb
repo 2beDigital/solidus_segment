@@ -1,0 +1,13 @@
+<script>
+  <% if current_order.present?  && !Rails.env.staging? %>
+    var link_to_cart_segment = document.querySelector('#link-to-cart');
+    analytics.trackLink(link_to_cart_segment, 'Cart Viewed', {
+    cart_id: '<%= current_order.number %>',
+    products: [
+        <% current_order.line_items.each_with_index do |line_item, index| %>
+            <%= product_for_segment(line_item.variant.product, position: index+1, quantity: line_item.quantity) %>,
+        <% end %>
+    ]
+    });
+  <% end %>
+</script>

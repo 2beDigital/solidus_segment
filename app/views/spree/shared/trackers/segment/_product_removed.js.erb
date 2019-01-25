@@ -1,0 +1,14 @@
+<% # High depency with spree_minicart frontend
+  # https://github.com/2beDigital/spree_minicart/blob/master/app/assets/javascripts/spree/frontend/spree_minicart.js#L47
+  # minicart-items https://github.com/2beDigital/spree_minicart/blob/master/app/views/spree/shared/_minicart_content.html.erb
+  if (!(current_order.nil? || current_order.line_items.empty?) && !Rails.env.staging?) %>
+      <script>
+        if (typeof analytics !== 'undefined') {
+          <% current_order.line_items.each_with_index do |line_item, index| %>
+            var link<%= index %> = document.getElementById('<%= "delete_#{dom_id(line_item)}" %>');
+            analytics.trackLink(link<%= index %>, 'Product Removed', <%= product_for_segment(line_item.variant.product, variant: line_item.variant.sku ,position: index, quantity:line_item.quantity ,cart_id: current_order.number) %>);
+          <% end %>
+        }
+      </script>
+<% end %>
+

@@ -1,0 +1,28 @@
+<% if (params[:search].present? || params[:order].present?) && !Rails.env.staging? %>
+  <script>
+    if (typeof analytics !== 'undefined') {
+      analytics.track('Product List Filtered', {
+        <% if params[:search].present? %>
+        filters: [
+          <% params[:search].to_hash.each do |type, value| %>
+            <%= { type: type, value: value }.to_json.html_safe %>,
+          <% end %>
+        ],
+        <% end %>
+        <% if params[:order].present? %>
+        sorts: [
+          <% order = params[:order].split('_by_') %>
+          <% if order.size == 2 %>
+            <%= { type: order[1], value: order[0] }.to_json.html_safe %>,
+          <% end %>
+        ],
+        <% end %>
+        products: [
+        <% @products.each_with_index do |product, index| %>
+          <%= product_for_segment(product, position: index+1, image: product.images.first) %>,
+        <% end %>
+        ]
+      });
+    }
+  </script>
+<% end %>

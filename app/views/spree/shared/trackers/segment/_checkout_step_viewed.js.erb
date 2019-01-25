@@ -1,0 +1,12 @@
+<script>
+  if (typeof analytics !== 'undefined') {
+    analytics.track('Checkout Step Viewed', {
+      checkout_id: '<%= @order.number %>',
+      //shipping_method: 'NA',
+      <% if @order.payments.present? %>
+      payment_method: '<%= @order.payments.first.payment_method.name %>',
+      <% end %>
+      step: '<%= (@order.checkout_steps.index(@order.state) + 1) %>'
+    });
+  }
+</script>
