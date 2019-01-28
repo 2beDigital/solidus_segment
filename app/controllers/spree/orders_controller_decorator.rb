@@ -12,7 +12,7 @@ module Spree
           Track::Product.new(variant.product,
                              user: spree_current_user,
                              product_url: product_url(variant.product),
-                             order_number: current_order.number,
+                             order_number: current_order(create_order_if_necessary: true).number,
                              quantity: quantity,
                              currency: current_currency).product_added
       end
