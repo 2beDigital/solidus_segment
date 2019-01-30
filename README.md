@@ -44,6 +44,24 @@ bundle
 bundle exec rails g solidus_segment:install
 ```
 
+Add to the **config/initializers/analytics_ruby.rb** SEGMENT_KEY_RUBY
+  ```ruby
+Analytics = Segment::Analytics.new({
+                                       write_key: ENV['SEGMENT_KEY_RUBY'],
+                                       on_error: Proc.new { |status, msg| print msg }
+                                   })
+  ```
+  
+  Add to yout application.rb/application.yml SEGMENT_KEY_JS
+  ```javascript
+  <script type="text/javascript">
+    !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t,e){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src="https://cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(n,a);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.1.0";
+      analytics.load("<%=ENV['SEGMENT_KEY_JS']%>".replace(/^\s+|\s+$/g, ''));
+      analytics.page();
+    }}();
+  </script>
+  ```
+
 Testing
 -------
 
