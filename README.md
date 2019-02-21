@@ -34,6 +34,7 @@ Installation
 Add solidus_segment to your Gemfile:
 
 ```ruby
+gem 'analytics-ruby', '~> 2.2', '>= 2.2.5', :require => 'segment/analytics'
 gem 'solidus_segment', github: '2beDigital/solidus_segment'
 ```
 
